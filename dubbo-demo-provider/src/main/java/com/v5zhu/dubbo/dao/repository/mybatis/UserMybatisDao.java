@@ -12,4 +12,9 @@ import com.v5zhu.dubbo.po.entity.User;
 public interface UserMybatisDao {
     User findByLoginName(String loginName);
 
+    int createUser(User user);
+
+    int modifyUser(User user);
+
+    int deleteUser(Long userId);
 }

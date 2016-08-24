@@ -29,4 +29,36 @@ public class UserServiceImpl implements UserService {
             return BeanMapper.map(user,UserDto.class);
         return null;
     }
+
+    @Override
+    public void createUser(UserDto userDto) throws Exception {
+        User user=userMybatisDao.findByLoginName(userDto.getLoginName());
+        if(user!=null){
+            throw new Exception("该用户名已被占用");
+        }
+        user=BeanMapper.map(userDto,User.class);
+        user.setDeleted(0);
+        int result=userMybatisDao.createUser(user);
+        if(result!=1){
+            throw new Exception("添加用户失败");
+        }
+    }
+
+    @Override
+    public void modifyUser(Long userId, UserDto userDto) throws Exception {
+        User user=BeanMapper.map(userDto,User.class);
+        user.setId(userId);
+        int result=userMybatisDao.modifyUser(user);
+        if(result!=1){
+            throw new Exception("修改用户信息失败");
+        }
+    }
+
+    @Override
+    public void deleteUser(Long userId) throws Exception {
+        int result=userMybatisDao.deleteUser(userId);
+        if(result!=1){
+            throw new Exception("删除用户失败");
+        }
+    }
 }
