@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @SuppressWarnings("ALL")
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/api/v2/")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -25,7 +25,6 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "user", method = RequestMethod.GET,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity findByLoginName(@RequestParam("loginName") String loginName) {
